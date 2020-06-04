@@ -1,0 +1,52 @@
+def  Costpredictor(arr,cost,printarray,arr1,capacityactual,place , t): #A function to determine the cost
+capacity1 = capacityactual
+for i in range (len(arr)):
+if(capacity1 >= arr[i] and capacity1 != 0) : #The capacity should be greater than the array value as lesser than would result in a 0 and also the capacity sgould br a positive value
+d = int(capacity1/arr[i]) #The number of such machines is stored in d
+arr1[i] = d #The number is stored at the same index in another array
+capacity1 = capacity1 - arr[i]*d #The capacity is reduced and hence the remainder is found
+
+totalcost = 0
+for i in range(len(arr)):
+totalcost += cost[i]*arr1[i] #The cost array is multiplied by the frequency array to get the total cost per hour
+#The following is the input format
+print('   {')
+print('    "Region" :" %s " '%(place) )
+print('    "total_cost": "%d" '%(t*totalcost)) #t is the number of hours given in the input
+print('    "machines":[')
+for i in range (len(arr)):
+if(arr1[i] != 0 ): #If the array had a zero element it means that that machine is not used
+print('    (%s,%d)' %(printarray[i],arr1[i]))
+print('   ]')
+print('  }')
+
+
+
+time = int(input()) #Both the inputs are taken
+capacityactual = int(input())
+
+print('{')
+print(' "Output" : [')
+arrNY = [160,320,80,40,20,10] #The array is created in the least per unit cost to the highest
+costNY= [1400,2820,774,450,230,120] #The corresponding costs are stored in the cost array
+printarrayNY=['8XLarge', '10Xlarge' , '4XLarge' , '2XLarge' , '1XLarge' , 'Large  ']#The corresponding lables are stored here in the array
+FrequencyNY = [0,0,0,0,0,0]
+
+Costpredictor(arrNY,costNY,printarrayNY,FrequencyNY,capacityactual,'NewYork',time) #The function is called
+#The same procedure is repeated in for India and China
+arrIN = [160,320,40,80,10]
+costIN = [1300,2970,413,890,140]
+printarrayIN=['8XLarge' , '10Xlarge' , '2XLarge' , '4XLarge' , 'Large  ']
+FrequencyIN = [0,0,0,0,0]
+
+Costpredictor(arrIN,costIN,printarrayIN,FrequencyIN,capacityactual,'India',time)
+
+arrChin = [160,80,20,10]
+costChin = [1180 , 670 , 200 , 110]
+printarrayChin = ['8XLarge','4XLarge','1XLarge' , 'Large  ']
+FrequencyChin = [0,0,0,0]
+
+Costpredictor(arrChin,costChin,printarrayChin,FrequencyChin,capacityactual,'China',time)
+
+print(' ]')
+print('}')
